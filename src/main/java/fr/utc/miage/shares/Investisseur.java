@@ -1,5 +1,6 @@
 package fr.utc.miage.shares;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Investisseur {
@@ -43,11 +44,11 @@ public class Investisseur {
     }
 
    
-    /*public ArrayList<Action> afficherListeActions() {
+    public ArrayList<Action> afficherListeActions() {
         
-        return getApplication; //
-    }*/
-   
+        return Application.getApplication().getActions(); 
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 package fr.utc.miage.shares;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -10,16 +11,13 @@ public class InvestisseurTest {
     private static final String NOM_CORRECT = "Lapoule";
     private static final String PRENOM_CORRECT = "Cecile";
 
-   /* @Test
+   @Test
     public void testGetPortefeuillewithCorrectsParams () {
-
-        Investisseur currentInvestisseur = new Investisseur (NOM_CORRECT, PRENOM_CORRECT);
-
-        ArrayList<Action> portefeuille = currentInvestisseur.getApplication();
+        ArrayList<Action> portefeuille = Application.getApplication().getActions();
 
         assertEquals(portefeuille, new ArrayList<Action>());
 
-    }*/
+    }
 
     @Test 
     public void testConstructorwithCorrectsParams () {
