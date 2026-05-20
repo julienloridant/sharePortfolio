@@ -2,7 +2,6 @@ package fr.utc.miage.shares;
 
 import java.time.LocalDate;
 
-
 public class Gestionnaire {
 
     private final String nom;
@@ -27,19 +26,13 @@ public class Gestionnaire {
         int todayDay = LocalDate.now().getDayOfMonth();
         Jour todayDate = new Jour(todayYear, todayDay);
 
-        if (Application.getActions().contains(action)) {
+        if (Application.getApplication().getActions().contains(action)) {
             throw new IllegalArgumentException("Action already exists");
         } else {
-            Application.getActions().add(action);
+            Application.getApplication().getActions().add(action);
             action.enrgCours(todayDate, valeur);
             return action;
         }
+    } 
 
-   
-    }
-
-
-
-
-    
-}
+} 
