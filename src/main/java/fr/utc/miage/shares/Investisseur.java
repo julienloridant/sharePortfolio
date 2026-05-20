@@ -31,6 +31,16 @@ public class Investisseur {
         this.prenom = prenom;
       
     }
+  public static float retournerCoursActionSimple(ActionSimple uneActionSimple){
+
+        LocalDate date = LocalDate.now();
+        int annee = date.getYear(); // Année
+        int jourDeLAnnee = date.getDayOfYear(); // Jour
+        Jour jourActuel = new Jour(annee, jourDeLAnnee);
+
+        return uneActionSimple.valeur(jourActuel);
+        
+    }
 
    
     /*public ArrayList<Action> afficherListeActions() {

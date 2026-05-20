@@ -34,7 +34,7 @@ public class ActionSimple extends Action {
     public ActionSimple(final String libelle) {
         // Action simple initialisée comme 1 action
         super(libelle);
-        // init spécifique
+        // init spécifique 
         this.mapCours = new HashMap<>();
     }
 
@@ -53,4 +53,27 @@ public class ActionSimple extends Action {
             return DEFAULT_ACTION_VALUE;
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ActionSimple other = (ActionSimple) obj;
+        return true;
+    }
+
+
 }
