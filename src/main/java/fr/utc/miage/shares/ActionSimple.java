@@ -34,7 +34,7 @@ public class ActionSimple extends Action {
     public ActionSimple(final String libelle) {
         // Action simple initialisée comme 1 action
         super(libelle);
-        // init spécifique
+        // init spécifique 
         this.mapCours = new HashMap<>();
     }
 
