@@ -1,16 +1,37 @@
 package fr.utc.miage.shares;
-import java.time.LocalDate;
 
-
+import java.util.ArrayList;
 
 public class Investisseur {
 
+    private String nom; 
+    private String prenom;
+   
 
-    public Investisseur() {
 
+    public String getNom() {
+        return nom;
     }
 
-    public static float retournerCoursActionSimple(ActionSimple uneActionSimple){
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+   
+
+    public Investisseur(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
+      
+    }
+  public static float retournerCoursActionSimple(ActionSimple uneActionSimple){
 
         LocalDate date = LocalDate.now();
         int annee = date.getYear(); // Année
@@ -21,7 +42,12 @@ public class Investisseur {
         
     }
 
+   
+    /*public ArrayList<Action> afficherListeActions() {
+        
+        return getApplication; //
+    }*/
+   
 
-    
 
 }
