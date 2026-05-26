@@ -21,8 +21,10 @@ public class Gestionnaire {
         return this.prenom;
     }
 
-    public ActionSimple creerActionSimple(final String libelle, final float valeur) throws IllegalArgumentException {
-        ActionSimple action = new ActionSimple(libelle);
+    public ActionSimple createActionSimple(final String libelle, final float valeur) throws IllegalArgumentException {
+        ActionSimple action = new ActionSimple(libelle, new java.util.HashMap<Jour, Float>(){{
+            put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfYear()), valeur);
+        }});
         int todayYear = LocalDate.now().getYear();
         int todayDay = LocalDate.now().getDayOfMonth();
         Jour todayDate = new Jour(todayYear, todayDay);
