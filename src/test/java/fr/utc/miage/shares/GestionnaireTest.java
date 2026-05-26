@@ -55,4 +55,33 @@ class GestionnaireTest {
             gestionnaire.supprimerActionSimple("nonExistentAction");
         });
     }
+
+    @Test
+    void testModifierActionSimpleDoitModifierLaValeurDeLAction() {
+        gestionnaire.creerActionSimple("actionToModify", 50.0f);
+        
+        gestionnaire.modifierCoursActionSimple("actionToModify", 75.0f);
+        
+        ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(0);
+        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());        
+        assertEquals(75.0f, action.valeur(today), 0.001f);
+    }
+
+    @Test
+    void testModifierActionSimpleActionInexistanteDoitLancerException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            gestionnaire.modifierCoursActionSimple("nonExistentAction", 75.0f);
+        });
+    }
+
+    @Test
+    void testModifierActionSimpleAvecMemeValeurNeDoitPasModifierLaValeur() {
+        gestionnaire.creerActionSimple("actionToModify", 50.0f);
+        
+        gestionnaire.modifierCoursActionSimple("actionToModify", 50.0f);
+        
+        ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(0);
+        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());        
+        assertEquals(50.0f, action.valeur(today), 0.001f);
+    }
 }

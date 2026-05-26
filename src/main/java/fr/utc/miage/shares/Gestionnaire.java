@@ -46,4 +46,21 @@ public class Gestionnaire {
 
     }
 
+    public void modifierCoursActionSimple(final String Libelle, final float valeur) throws IllegalArgumentException {
+        ActionSimple actionAModifier = new ActionSimple(Libelle);
+        int index = Application.getApplication().getActions().indexOf(actionAModifier);
+
+        if (index == -1) {
+            throw new IllegalArgumentException("Action does not exist");
+        }
+
+        ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(index);
+
+        int todayYear = LocalDate.now().getYear();
+        int todayDay = LocalDate.now().getDayOfMonth();
+        Jour todayDate = new Jour(todayYear, todayDay);
+
+        action.modifierCours(todayDate, valeur);
+    }
+
 } 
