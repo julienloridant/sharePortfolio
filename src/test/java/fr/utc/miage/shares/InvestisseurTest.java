@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 
 public class InvestisseurTest {
 
     private static final String NOM_CORRECT = "Lapoule";
     private static final String PRENOM_CORRECT = "Cecile";
+    private static final Action ACTION_APPLE = new ActionSimple("Apple", 100.0f);
 
    @Test
     public void testGetPortefeuillewithCorrectsParams () {
@@ -58,7 +61,7 @@ public class InvestisseurTest {
     void devraitRetournerLeBonCoursDeLAction() {
 
         // GIVEN
-        ActionSimple action = new ActionSimple("Apple");
+        ActionSimple action = new ActionSimple("Apple", 105.2f);
         LocalDate date = LocalDate.now();
         Jour jourActuel = new Jour(date.getYear(), date.getDayOfYear());
 
@@ -72,5 +75,24 @@ public class InvestisseurTest {
 
     }
 
+    @Test
+    void testVendreAction() {
+        // GIVEN
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        Application.getApplication().addAction(ACTION_APPLE);
+        investisseur.setPortefeuille(new ArrayList<Action>() {{
+            add(ACTION_APPLE);
+        }});
 
+
+        // WHEN
+        double montantVente = investisseur.vendreAction(ACTION_APPLE, 1);
+
+        // THEN
+        Assertions.assertAll("VendreAction",
+                () -> assertEquals(100.0f, montantVente, 0.001f, "Le montant vente doit être de 100"),
+                () -> assertEquals(100.0f, investisseur.getSolde(), 0.001f, "Le solde de l'investisseur doit être de 100"),
+                () -> assertFalse(investisseur.getPortefeuille().contains(ACTION_APPLE), "L'action doit être retirée du portefeuille")
+        );
+    }
 }

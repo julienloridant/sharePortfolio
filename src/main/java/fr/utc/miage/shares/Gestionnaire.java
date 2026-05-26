@@ -21,7 +21,7 @@ public class Gestionnaire {
     }
 
     public ActionSimple createActionSimple(final String libelle, final float valeur) throws IllegalArgumentException {
-        ActionSimple action = new ActionSimple(libelle);
+        ActionSimple action = new ActionSimple(libelle, valeur);
         int todayYear = LocalDate.now().getYear();
         int todayDay = LocalDate.now().getDayOfMonth();
         Jour todayDate = new Jour(todayYear, todayDay);

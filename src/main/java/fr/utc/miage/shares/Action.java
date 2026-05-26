@@ -25,6 +25,7 @@ import java.util.Objects;
 public abstract class Action {
 
     private final String libelle;
+    private float valeur;
 
     /**
      * Get the value of libelle
@@ -35,22 +36,23 @@ public abstract class Action {
         return libelle;
     }
 
+    public float getValeur() {
+        return valeur;
+    }
+
+    public void setValeur(float valeur) {
+        this.valeur = valeur;
+    }
+
     /**
      * Builds an Action object from a string parameter.
      *
      * @param libelle the name of the action object
      */
-    protected Action(final String libelle) {
+    protected Action(final String libelle, float valeur) {
         this.libelle = libelle;
+        this.valeur = valeur;
     }
-
-    /**
-     * Provides the value of the action object for a given day.
-     *
-     * @param j
-     * @return
-     */
-    public abstract float valeur(Jour j);
 
     @Override
     public int hashCode() {
@@ -75,4 +77,7 @@ public abstract class Action {
     public String toString() {
         return this.getLibelle();
     }
+
+
+
 }

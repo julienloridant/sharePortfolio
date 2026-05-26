@@ -31,9 +31,9 @@ public class ActionSimple extends Action {
     private final Map<Jour, Float> mapCours;
 
     // constructeur
-    public ActionSimple(final String libelle) {
+    public ActionSimple(final String libelle, float valeur) {
         // Action simple initialisée comme 1 action
-        super(libelle);
+        super(libelle, valeur);
         // init spécifique 
         this.mapCours = new HashMap<>();
     }
@@ -45,7 +45,6 @@ public class ActionSimple extends Action {
         }
     }
 
-    @Override
     public float valeur(final Jour j) {
         if (this.mapCours.containsKey(j)) {
             return this.mapCours.get(j);
