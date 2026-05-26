@@ -1,6 +1,7 @@
 package fr.utc.miage.shares;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 public class Gestionnaire {
 
@@ -45,6 +46,23 @@ public class Gestionnaire {
 
 
     }
+
+    //Méthode pour créer une action composée à partir d'au moins 2 actions simples
+    public  ActionComposee creerActionComposee(String libelle, Map<Float, ActionSimple> map) throws IllegalArgumentException {
+        if (map.size() < 2) {
+            throw new IllegalArgumentException("Une action composée doit être constituée d'au moins 2 actions simples.");
+        }
+        ActionComposee actionComposee = new ActionComposee(libelle, map);
+        if (Application.getApplication().getActions().contains(actionComposee)) {
+            throw new IllegalArgumentException("Action already exists");
+        } else {
+            Application.getApplication().getActions().add(actionComposee);
+            return actionComposee;
+        }
+    }
+    
+
+
     
 
 } 
