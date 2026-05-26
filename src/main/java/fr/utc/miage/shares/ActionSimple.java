@@ -32,9 +32,12 @@ public class ActionSimple extends Action {
 
     // constructeur
     public ActionSimple(final String libelle, Map<Jour, Float> listeValeur) {
-        // Action simple initialisée comme 1 action
-        super(libelle, listeValeur);
-        // init spécifique 
+        super(libelle);
+        this.mapCours = listeValeur;
+    }
+
+    public ActionSimple(final String libelle) {
+        super(libelle);
         this.mapCours = new HashMap<>();
     }
 

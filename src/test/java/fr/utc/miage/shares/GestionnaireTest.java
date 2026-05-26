@@ -20,7 +20,9 @@ class GestionnaireTest {
 
     @Test
     void testCreateActionSimpleDoitRetournerUneActionAvecLesValeursSpecifiees() {
-        ActionSimple action = gestionnaire.creerActionSimple("TestAction", 100.0f);
+        ActionSimple action = gestionnaire.createActionSimple("TestAction", new java.util.HashMap<>(){{
+            put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 100.0f);
+        }});
         Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
         
         // Ajout du delta de tolérance pour le float (0.001f)
@@ -29,16 +31,22 @@ class GestionnaireTest {
 
     @Test
     void testCreateActionSimpleMemeDateMemeLibelleNeDoitPasFonctionner() {
-        gestionnaire.creerActionSimple("action", 50.0f);
+        gestionnaire.createActionSimple("action", new java.util.HashMap<>(){{
+            put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
+        }});
         
         assertThrows(IllegalArgumentException.class, () -> {
-            gestionnaire.creerActionSimple("action", 50.0f);
+            gestionnaire.createActionSimple("action", new java.util.HashMap<>(){{
+                put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
+            }});
         });
     }
 
     @Test
     void testSupprimerActionSimpleDoitSupprimerLAction() {
-        gestionnaire.creerActionSimple("actionToRemove", 50.0f);
+        gestionnaire.createActionSimple("actionToRemove", new java.util.HashMap<>(){{
+            put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
+        }});
         
         // Vérifie que l'action a été ajoutée
         assertEquals(1, Application.getApplication().getActions().size());

@@ -67,11 +67,18 @@ public class Investisseur {
         return Application.getApplication().getActions(); 
     }
 
-    public float vendreAction(Action action, int quantite) {
-        float montantVente = action.getDerniereValeur() * quantite;
-        solde += montantVente; 
-        portefeuille.remove(action);
-        return montantVente;
+    public void vendreAction(Action actionApple, int quantite) {
+        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
+
+
+        if(actionApple instanceof ActionSimple) {
+            ActionSimple actionSimple = (ActionSimple) actionApple;
+            float montantVente = actionSimple.valeur(today) * quantite;
+            solde += montantVente;
+            portefeuille.remove(actionApple);
+        } else {
+            throw new IllegalArgumentException("L'action doit être une instance d'ActionSimple.");
+        }
     }
 
 

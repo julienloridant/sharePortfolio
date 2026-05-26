@@ -63,9 +63,8 @@ public abstract class Action {
      *
      * @param libelle the name of the action object
      */
-    protected Action(final String libelle, Map<Jour, Float> valeur) {
+    protected Action(final String libelle) {
         this.libelle = libelle;
-        this.listeValeur = valeur;
     }
 
     @Override
