@@ -30,6 +30,10 @@ public class Application {
         this.actions.add(action);
     }
 
+    public void removeAction(Action action) {
+        this.actions.remove(action);
+    }
+
 
     public void reinitialiser() {
     this.actions.clear(); 
