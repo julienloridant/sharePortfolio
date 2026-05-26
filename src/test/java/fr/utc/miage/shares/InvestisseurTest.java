@@ -12,7 +12,9 @@ public class InvestisseurTest {
 
     private static final String NOM_CORRECT = "Lapoule";
     private static final String PRENOM_CORRECT = "Cecile";
-    private static final Action ACTION_APPLE = new ActionSimple("Apple", 100.0f);
+    private static final Action ACTION_APPLE = new ActionSimple("Apple", new java.util.HashMap<>(){{
+        put(new Jour(2023, 1), 100.0f);
+    }});   
 
    @Test
     public void testGetPortefeuillewithCorrectsParams () {
@@ -61,7 +63,7 @@ public class InvestisseurTest {
     void devraitRetournerLeBonCoursDeLAction() {
 
         // GIVEN
-        ActionSimple action = new ActionSimple("Apple", 105.2f);
+        ActionSimple action = new ActionSimple("Apple", new java.util.HashMap<>());
         LocalDate date = LocalDate.now();
         Jour jourActuel = new Jour(date.getYear(), date.getDayOfYear());
 
@@ -86,7 +88,7 @@ public class InvestisseurTest {
 
 
         // WHEN
-        double montantVente = investisseur.vendreAction(ACTION_APPLE, 1);
+        float montantVente = investisseur.vendreAction(ACTION_APPLE, 1);
 
         // THEN
         Assertions.assertAll("VendreAction",

@@ -89,10 +89,9 @@ class ActionTest {
     private static class ActionImpl extends Action {
 
         public ActionImpl(final String aLabel) {
-            super(aLabel);
+            super(aLabel, new java.util.HashMap<>());
         }
 
-        @Override
         public float valeur(final Jour aJour) {
             return 0.0F;
         }

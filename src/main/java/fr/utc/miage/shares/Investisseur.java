@@ -68,7 +68,7 @@ public class Investisseur {
     }
 
     public float vendreAction(Action action, int quantite) {
-        float montantVente = action.getValeur() * quantite;
+        float montantVente = action.getDerniereValeur() * quantite;
         solde += montantVente; 
         portefeuille.remove(action);
         return montantVente;

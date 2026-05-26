@@ -15,6 +15,7 @@
  */
 package fr.utc.miage.shares;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -25,7 +26,7 @@ import java.util.Objects;
 public abstract class Action {
 
     private final String libelle;
-    private float valeur;
+    private Map<Jour, Float> listeValeur;
 
     /**
      * Get the value of libelle
@@ -36,12 +37,25 @@ public abstract class Action {
         return libelle;
     }
 
-    public float getValeur() {
-        return valeur;
+    public Map<Jour, Float> getListeValeur() {
+        return listeValeur;
     }
 
-    public void setValeur(float valeur) {
-        this.valeur = valeur;
+    public void setListeValeur(Map<Jour, Float> valeur) {
+        this.listeValeur = valeur;
+    }
+
+    public float getDerniereValeur() {
+        if (this.listeValeur != null && !this.listeValeur.isEmpty()) {
+            Map.Entry<Jour, Float> lastEntry = null;
+            for (Map.Entry<Jour, Float> entry : this.listeValeur.entrySet()) {
+                lastEntry = entry;
+            }
+            if (lastEntry != null) {
+                return lastEntry.getValue();
+            }
+        }
+        return 0.0f; 
     }
 
     /**
@@ -49,9 +63,9 @@ public abstract class Action {
      *
      * @param libelle the name of the action object
      */
-    protected Action(final String libelle, float valeur) {
+    protected Action(final String libelle, Map<Jour, Float> valeur) {
         this.libelle = libelle;
-        this.valeur = valeur;
+        this.listeValeur = valeur;
     }
 
     @Override
