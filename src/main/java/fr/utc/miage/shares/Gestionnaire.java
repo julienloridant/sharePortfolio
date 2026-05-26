@@ -20,7 +20,7 @@ public class Gestionnaire {
         return this.prenom;
     }
 
-    public ActionSimple createActionSimple(final String libelle, final float valeur) throws IllegalArgumentException {
+    public ActionSimple creerActionSimple(final String libelle, final float valeur) throws IllegalArgumentException {
         ActionSimple action = new ActionSimple(libelle);
         int todayYear = LocalDate.now().getYear();
         int todayDay = LocalDate.now().getDayOfMonth();
@@ -34,5 +34,16 @@ public class Gestionnaire {
             return action;
         }
     } 
+
+    public void supprimerActionSimple(final String libelle) throws IllegalArgumentException {
+        ActionSimple actionToRemove = new ActionSimple(libelle);
+
+        if (!Application.getApplication().getActions().contains(actionToRemove)) {
+            throw new IllegalArgumentException("Action does not exist");
+        }
+        Application.getApplication().getActions().remove(actionToRemove);
+
+
+    }
 
 } 
