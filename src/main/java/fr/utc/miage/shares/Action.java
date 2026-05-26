@@ -52,6 +52,7 @@ public abstract class Action {
      */
     public abstract float valeur(Jour j);
 
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -75,4 +76,7 @@ public abstract class Action {
     public String toString() {
         return this.getLibelle();
     }
+
+
+    
 }

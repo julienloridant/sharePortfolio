@@ -75,5 +75,9 @@ public class ActionSimple extends Action {
         return true;
     }
 
+    //Modifier l'action déjà existante  
+    public void modifierValeurAction(ActionSimple actionSimple, float nouvelleValeur){
+
+    }
 
 }
