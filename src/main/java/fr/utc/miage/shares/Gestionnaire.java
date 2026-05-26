@@ -37,4 +37,15 @@ public class Gestionnaire {
         }
     } 
 
+    public void supprimerActionSimple(final String libelle) throws IllegalArgumentException {
+        ActionSimple actionToRemove = new ActionSimple(libelle);
+
+        if (!Application.getApplication().getActions().contains(actionToRemove)) {
+            throw new IllegalArgumentException("Action does not exist");
+        }
+        Application.getApplication().getActions().remove(actionToRemove);
+
+
+    }
+
 } 
