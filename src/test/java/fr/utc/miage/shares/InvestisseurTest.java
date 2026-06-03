@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 
@@ -91,9 +93,39 @@ public class InvestisseurTest {
         investisseur.vendreAction(ACTION_APPLE, 1);
 
         // THEN
-        Assertions.assertAll("VendreAction",
+        assertAll("VendreAction",
                 () -> assertEquals(100.0f, investisseur.getSolde(), 0.001f, "Le solde de l'investisseur doit être de 100"),
                 () -> assertFalse(investisseur.getPortefeuille().contains(ACTION_APPLE), "L'action doit être retirée du portefeuille")
         );
     }
+
+    @Test
+    void testRetirerAvecSoldeSuffisant() {
+        // GIVEN
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        investisseur.setSolde(200.0f);
+
+        // WHEN
+        investisseur.retirerSolde(150.0f);
+
+        // THEN
+        assertEquals(50.0f, investisseur.getSolde(), 0.001f, "Le solde de l'investisseur doit être de 50 après le retrait");
+    }
+
+    @Test
+    void testRetirerAvecSoldeInsuffisant() {
+        // GIVEN
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        investisseur.setSolde(100.0f);
+
+        // WHEN & THEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            investisseur.retirerSolde(150.0f);
+        });
+
+        assertEquals("Solde insuffisant pour effectuer le retrait", exception.getMessage(), "Le message d'erreur doit indiquer un solde insuffisant");
+    }
+
+
+
 }

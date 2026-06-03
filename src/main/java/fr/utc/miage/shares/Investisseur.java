@@ -61,6 +61,15 @@ public class Investisseur {
         
     }
 
+    public void retirerSolde(float montant) throws IllegalArgumentException {
+        if (montant > solde) {
+            throw new IllegalArgumentException("Solde insuffisant");
+        }
+        solde -= montant;
+    }
+
+    
+
    
     public ArrayList<Action> afficherListeActions() {
         
@@ -80,6 +89,9 @@ public class Investisseur {
             throw new IllegalArgumentException("L'action doit être une instance d'ActionSimple.");
         }
     }
+
+
+
 
 
 }
