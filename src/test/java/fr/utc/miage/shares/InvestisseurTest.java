@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 
@@ -91,7 +92,7 @@ public class InvestisseurTest {
         investisseur.vendreAction(ACTION_APPLE, 1);
 
         // THEN
-        Assertions.assertAll("VendreAction",
+        assertAll("VendreAction",
                 () -> assertEquals(100.0f, investisseur.getSolde(), 0.001f, "Le solde de l'investisseur doit être de 100"),
                 () -> assertFalse(investisseur.getPortefeuille().contains(ACTION_APPLE), "L'action doit être retirée du portefeuille")
         );

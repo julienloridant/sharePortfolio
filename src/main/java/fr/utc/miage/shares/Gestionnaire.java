@@ -42,7 +42,7 @@ public class Gestionnaire {
     }
 
     //Méthode pour créer une action composée à partir d'au moins 2 actions simples
-    public  ActionComposee creerActionComposee(String libelle, Map<Float, ActionSimple> map) throws IllegalArgumentException {
+    public  ActionComposee creerActionComposee(String libelle, Map<ActionSimple,Float> map) throws IllegalArgumentException {
         if (map.size() < 2) {
             throw new IllegalArgumentException("Une action composée doit être constituée d'au moins 2 actions simples.");
         }
@@ -58,17 +58,8 @@ public class Gestionnaire {
 
 
     
-    public void modifierCoursActionSimple(final String libelle, Map<Jour, Float> cours) {
-    for (Action a : Application.getApplication().getActions()) {
-        if (a.getLibelle().equals(libelle) && a instanceof ActionSimple) {
-            ActionSimple action = (ActionSimple) a;
-            for (Map.Entry<Jour, Float> entry : cours.entrySet()) {
-                action.enrgCours(entry.getKey(), entry.getValue());
-            }
-            return;
-        }
+    public void modifierCoursActionSimple(ActionSimple action, Map<Jour, Float> cours) {
+      
     }
-    throw new IllegalArgumentException("Action not found: " + libelle);
-}
 
 } 

@@ -1,50 +1,43 @@
 package fr.utc.miage.shares;
 import java.util.Map;
+import java.util.Objects;
 
 public class ActionComposee extends Action {
 
-    //Attributs
-    private Map<Float,ActionSimple> listeActionSimple;
+    // Attributs
+    private Map<ActionSimple, Float> listeActionSimple;
 
-    //Construc
-    public ActionComposee(String Libelle, Map<Float,ActionSimple> map){
-        super(Libelle);
+    // Constructeur
+    public ActionComposee(String libelle, Map<ActionSimple, Float> map) {
+        super(libelle);
         this.listeActionSimple = map;
     }
 
-    //Get and set 
-    public Map<Float, ActionSimple> getListeActionSimple() {
+    // Getter
+    public Map<ActionSimple, Float> getListeActionSimple() {
         return listeActionSimple;
     }
 
-    //Méthodes
+    // Méthodes
     @Override
     public float valeur(Jour j) {
         float valeur = 0;
-        for (Map.Entry<Float, ActionSimple> entry : this.listeActionSimple.entrySet()) {
-            valeur += entry.getKey() * entry.getValue().valeur(j);
+        for (Map.Entry<ActionSimple, Float> entry : this.listeActionSimple.entrySet()) {
+            valeur += entry.getValue() * entry.getKey().valeur(j);
         }
         return valeur;
     }
-    @Override 
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
+
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ActionComposee other = (ActionComposee) obj;
-        return true;
+    public int hashCode() {
+        return Objects.hash(this.getLibelle());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        final ActionComposee other = (ActionComposee) obj;
+        return Objects.equals(this.getLibelle(), other.getLibelle());
+    }
 }
- 
