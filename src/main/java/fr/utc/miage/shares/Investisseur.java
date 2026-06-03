@@ -95,6 +95,13 @@ public class Investisseur {
         }
     }
 
+    public void acheterAction(Action action, int quantite) {
+        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
+
+        float montantAchat = action.valeur(today) * quantite;
+        solde -= montantAchat;
+        portefeuille.add(action);
+    }
 
 
 

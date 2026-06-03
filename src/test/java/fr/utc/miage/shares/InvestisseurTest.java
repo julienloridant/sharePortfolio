@@ -6,17 +6,30 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
 
 
-public class InvestisseurTest {
+
+
+class InvestisseurTest {
 
     private static final String NOM_CORRECT = "Lapoule";
     private static final String PRENOM_CORRECT = "Cecile";
-    private static final Action ACTION_APPLE = new ActionSimple("Apple", new java.util.HashMap<>(){{
+    private static final ActionSimple ACTION_APPLE = new ActionSimple("Apple", new java.util.HashMap<>(){{
         put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 100.0f);
     }});   
+
+    private static final ActionSimple ACTION_CAPGEMINI = new ActionSimple("Apple", new java.util.HashMap<>(){{
+        put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
+    }}); 
+    
+    private static final Action ACTION_COMPOSEE = new ActionComposee("Composée Apple et Capgemini", new java.util.HashMap<>(){{
+        put(0.5f, ACTION_APPLE);
+        put(0.5f, ACTION_CAPGEMINI);
+    }});
 
 
    @Test
@@ -123,7 +136,7 @@ public class InvestisseurTest {
             investisseur.retirerSolde(150.0f);
         });
 
-        assertEquals("Solde insuffisant pour effectuer le retrait", exception.getMessage(), "Le message d'erreur doit indiquer un solde insuffisant");
+        assertEquals("Solde insuffisant", exception.getMessage(), "Le message d'erreur doit indiquer un solde insuffisant");
     }
 
     @Test
@@ -135,6 +148,19 @@ public class InvestisseurTest {
         // WHEN
         investisseur.ajouterSolde(150.0f);
 
+    @Test
+    void testAcheterAction() {
+
+        // GIVEN
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        investisseur.setSolde(100.0f);
+        // WHEN & THEN
+        investisseur.acheterAction(ACTION_APPLE, 1);
+
+        assertAll("AcheterAction",
+                () -> assertEquals(0.0f, investisseur.getSolde(), 0.001f),
+                () -> assertTrue(investisseur.getPortefeuille().contains(ACTION_APPLE))
+        );
         // THEN
         assertEquals(350.0f, investisseur.getSolde(), 0.001f, "Le solde de l'investisseur doit être de 350 après l'ajout");
     }
@@ -153,4 +179,5 @@ public class InvestisseurTest {
         assertEquals("Le montant doit être positif", exception.getMessage(), "Le message d'erreur doit indiquer un montant négatif");
     }
 
+    }
 }
