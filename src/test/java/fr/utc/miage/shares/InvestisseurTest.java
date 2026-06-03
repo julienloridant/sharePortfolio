@@ -18,9 +18,18 @@ class InvestisseurTest {
 
     private static final String NOM_CORRECT = "Lapoule";
     private static final String PRENOM_CORRECT = "Cecile";
-    private static final Action ACTION_APPLE = new ActionSimple("Apple", new java.util.HashMap<>(){{
+    private static final ActionSimple ACTION_APPLE = new ActionSimple("Apple", new java.util.HashMap<>(){{
         put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 100.0f);
     }});   
+
+    private static final ActionSimple ACTION_CAPGEMINI = new ActionSimple("Apple", new java.util.HashMap<>(){{
+        put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
+    }}); 
+    
+    private static final Action ACTION_COMPOSEE = new ActionComposee("Composée Apple et Capgemini", new java.util.HashMap<>(){{
+        put(0.5f, ACTION_APPLE);
+        put(0.5f, ACTION_CAPGEMINI);
+    }});
 
 
    @Test
