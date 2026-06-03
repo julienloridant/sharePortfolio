@@ -61,6 +61,20 @@ public class Investisseur {
         
     }
 
+    public void retirerSolde(float montant) throws IllegalArgumentException {
+        if (montant > solde) {
+            throw new IllegalArgumentException("Solde insuffisant");
+        }
+        solde -= montant;
+    }
+
+    public void ajouterSolde(float montant) throws IllegalArgumentException {
+        if (montant <= 0) {
+            throw new IllegalArgumentException("Le montant doit être positif");
+        }
+        solde += montant;
+    }
+
    
     public ArrayList<Action> afficherListeActions() {
         
@@ -80,6 +94,16 @@ public class Investisseur {
             throw new IllegalArgumentException("L'action doit être une instance d'ActionSimple.");
         }
     }
+
+    public void acheterAction(Action action, int quantite) {
+        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
+
+        float montantAchat = action.valeur(today) * quantite;
+        solde -= montantAchat;
+        portefeuille.add(action);
+    }
+
+
 
 
 }
