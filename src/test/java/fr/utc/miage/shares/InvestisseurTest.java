@@ -6,11 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
 
 
-public class InvestisseurTest {
+
+
+class InvestisseurTest {
 
     private static final String NOM_CORRECT = "Lapoule";
     private static final String PRENOM_CORRECT = "Cecile";
@@ -123,9 +127,23 @@ public class InvestisseurTest {
             investisseur.retirerSolde(150.0f);
         });
 
-        assertEquals("Solde insuffisant pour effectuer le retrait", exception.getMessage(), "Le message d'erreur doit indiquer un solde insuffisant");
+        assertEquals("Solde insuffisant", exception.getMessage(), "Le message d'erreur doit indiquer un solde insuffisant");
     }
 
 
+    @Test
+    void testAcheterAction() {
 
+        // GIVEN
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        investisseur.setSolde(100.0f);
+        // WHEN & THEN
+        investisseur.acheterAction(ACTION_APPLE, 1);
+
+        assertAll("AcheterAction",
+                () -> assertEquals(0.0f, investisseur.getSolde(), 0.001f),
+                () -> assertTrue(investisseur.getPortefeuille().contains(ACTION_APPLE))
+        );
+
+    }
 }

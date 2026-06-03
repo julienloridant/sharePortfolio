@@ -90,6 +90,18 @@ public class Investisseur {
         }
     }
 
+    public void acheterAction(Action action, int quantite) {
+        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
+
+        if(action instanceof ActionSimple) {
+            ActionSimple actionSimple = (ActionSimple) action;
+            float montantAchat = actionSimple.valeur(today) * quantite;
+            solde -= montantAchat;
+            portefeuille.add(action);
+        } else {
+            throw new IllegalArgumentException("L'action doit être une instance d'ActionSimple.");
+        }
+    }
 
 
 
