@@ -68,7 +68,12 @@ public class Investisseur {
         solde -= montant;
     }
 
-    
+    public void ajouterSolde(float montant) throws IllegalArgumentException {
+        if (montant <= 0) {
+            throw new IllegalArgumentException("Le montant doit être positif");
+        }
+        solde += montant;
+    }
 
    
     public ArrayList<Action> afficherListeActions() {
