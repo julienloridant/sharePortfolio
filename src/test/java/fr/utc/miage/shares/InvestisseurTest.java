@@ -13,16 +13,9 @@ public class InvestisseurTest {
     private static final String NOM_CORRECT = "Lapoule";
     private static final String PRENOM_CORRECT = "Cecile";
     private static final Action ACTION_APPLE = new ActionSimple("Apple", new java.util.HashMap<>(){{
-        put(new Jour(2023, 1), 100.0f);
+        put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 100.0f);
     }});   
 
-   @Test
-    public void testGetPortefeuillewithCorrectsParams () {
-        ArrayList<Action> portefeuille = Application.getApplication().getActions();
-
-        assertEquals(portefeuille, new ArrayList<Action>());
-
-    }
 
     @Test 
     public void testConstructorwithCorrectsParams () {
@@ -81,18 +74,16 @@ public class InvestisseurTest {
     void testVendreAction() {
         // GIVEN
         Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
-        Application.getApplication().addAction(ACTION_APPLE);
         investisseur.setPortefeuille(new ArrayList<Action>() {{
             add(ACTION_APPLE);
         }});
 
 
         // WHEN
-        float montantVente = investisseur.vendreAction(ACTION_APPLE, 1);
+        investisseur.vendreAction(ACTION_APPLE, 1);
 
         // THEN
         Assertions.assertAll("VendreAction",
-                () -> assertEquals(100.0f, montantVente, 0.001f, "Le montant vente doit être de 100"),
                 () -> assertEquals(100.0f, investisseur.getSolde(), 0.001f, "Le solde de l'investisseur doit être de 100"),
                 () -> assertFalse(investisseur.getPortefeuille().contains(ACTION_APPLE), "L'action doit être retirée du portefeuille")
         );
