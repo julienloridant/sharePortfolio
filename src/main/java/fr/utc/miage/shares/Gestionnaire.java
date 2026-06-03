@@ -1,6 +1,5 @@
 package fr.utc.miage.shares;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 public class Gestionnaire {
@@ -21,7 +20,7 @@ public class Gestionnaire {
         return this.prenom;
     }
 
-    public ActionSimple createActionSimple(final String libelle, java.util.Map<Jour, Float> cours) throws IllegalArgumentException {
+    public ActionSimple creerActionSimple(final String libelle, java.util.Map<Jour, Float> cours) throws IllegalArgumentException {
         ActionSimple action = new ActionSimple(libelle, cours);
         if (Application.getApplication().getActions().contains(action)) {
             throw new IllegalArgumentException("Action already exists");
@@ -59,21 +58,17 @@ public class Gestionnaire {
 
 
     
-    public void modifierCoursActionSimple(final String Libelle, final float valeur) throws IllegalArgumentException {
-        ActionSimple actionAModifier = new ActionSimple(Libelle);
-        int index = Application.getApplication().getActions().indexOf(actionAModifier);
-
-        if (index == -1) {
-            throw new IllegalArgumentException("Action does not exist");
+    public void modifierCoursActionSimple(final String libelle, Map<Jour, Float> cours) {
+    for (Action a : Application.getApplication().getActions()) {
+        if (a.getLibelle().equals(libelle) && a instanceof ActionSimple) {
+            ActionSimple action = (ActionSimple) a;
+            for (Map.Entry<Jour, Float> entry : cours.entrySet()) {
+                action.enrgCours(entry.getKey(), entry.getValue());
+            }
+            return;
         }
-
-        ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(index);
-
-        int todayYear = LocalDate.now().getYear();
-        int todayDay = LocalDate.now().getDayOfMonth();
-        Jour todayDate = new Jour(todayYear, todayDay);
-
-        action.modifierCours(todayDate, valeur);
     }
+    throw new IllegalArgumentException("Action not found: " + libelle);
+}
 
 } 
