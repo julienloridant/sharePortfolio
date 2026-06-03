@@ -28,7 +28,7 @@ public class ActionSimple extends Action {
     private static final int DEFAULT_ACTION_VALUE = 0;
 
     // attribut lien
-    private final Map<Jour, Float> mapCours;
+    private Map<Jour, Float> mapCours;
 
     // constructeur
     public ActionSimple(final String libelle, Map<Jour, Float> listeValeur) {
@@ -77,10 +77,16 @@ public class ActionSimple extends Action {
         return true;
     }
 
+    public Map<Jour, Float> getCours() {
+        return this.mapCours;
+    }
+
     //Modifier l'action déjà existante  
     public void modifierValeurAction(ActionSimple actionSimple, float nouvelleValeur){
 
     }
+
+
 
     
     public void modifierCours(final Jour j, final float v) {

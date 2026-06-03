@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Application {
 
 
-    private final ArrayList<Action> actions;
+    private  ArrayList<Action> actions;
 
    
     private Application() {

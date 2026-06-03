@@ -1,8 +1,10 @@
 package fr.utc.miage.shares;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -111,6 +113,60 @@ class InvestisseurTest {
                 () -> assertFalse(investisseur.getPortefeuille().contains(ACTION_APPLE), "L'action doit être retirée du portefeuille")
         );
     }
+    @Test
+    public void testSetSolde() {
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        investisseur.setSolde(250.75f);
+        
+        assertEquals(250.75f, investisseur.getSolde(), 0.001f, "Le solde doit être correctement mis à jour");
+    }
+
+    @Test
+    public void testRetournerCoursActionSimple() {
+        // GIVEN
+        ActionSimple action = new ActionSimple("Apple Static Test");
+        LocalDate date = LocalDate.now();
+        // Attention : la méthode de ta classe utilise getDayOfYear() et non getDayOfMonth()
+        Jour jourActuel = new Jour(date.getYear(), date.getDayOfYear());
+        action.enrgCours(jourActuel, 150.0f);
+
+        // WHEN
+        float cours = Investisseur.retournerCoursActionSimple(action);
+
+        // THEN
+        assertEquals(150.0f, cours, 0.001f, "Doit retourner le cours pour le jour actuel");
+    }
+
+    @Test
+    public void testAfficherListeActions() {
+        // Nettoyage et préparation du Singleton
+        Application.getApplication().reinitialiser();
+        ActionSimple actionTest = new ActionSimple("Action Globale");
+        Application.getApplication().addAction(actionTest);
+
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        ArrayList<Action> listeAffichee = investisseur.afficherListeActions();
+
+        assertEquals(1, listeAffichee.size(), "Doit récupérer la liste depuis l'Application");
+        assertEquals(actionTest, listeAffichee.get(0), "L'action récupérée doit correspondre à celle de l'Application");
+    }
+
+    @Test
+    public void testVendreActionLaisseExceptionSiPasActionSimple() {
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        
+        // Création d'une action anonyme (qui hérite d'Action mais n'est pas une ActionSimple)
+        Action actionInvalide = new Action("Action Invalide") {
+            @Override
+            public float valeur(Jour j) {
+                return 10.0f;
+            }
+        };
+
+        // On utilise le chemin complet pour assertThrows au cas où l'import ne serait pas présent en haut du fichier
+        assertThrows(IllegalArgumentException.class, () -> {
+            investisseur.vendreAction(actionInvalide, 5);
+        }, "Doit lancer une exception car l'action n'est pas une instance de ActionSimple");
 
     @Test
     void testRetirerAvecSoldeSuffisant() {

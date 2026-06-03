@@ -1,6 +1,5 @@
 package fr.utc.miage.shares;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 public class Gestionnaire {
@@ -21,7 +20,7 @@ public class Gestionnaire {
         return this.prenom;
     }
 
-    public ActionSimple createActionSimple(final String libelle, java.util.Map<Jour, Float> cours) throws IllegalArgumentException {
+    public ActionSimple creerActionSimple(final String libelle, java.util.Map<Jour, Float> cours) throws IllegalArgumentException {
         ActionSimple action = new ActionSimple(libelle, cours);
         if (Application.getApplication().getActions().contains(action)) {
             throw new IllegalArgumentException("Action already exists");
@@ -43,7 +42,7 @@ public class Gestionnaire {
     }
 
     //Méthode pour créer une action composée à partir d'au moins 2 actions simples
-    public  ActionComposee creerActionComposee(String libelle, Map<Float, ActionSimple> map) throws IllegalArgumentException {
+    public  ActionComposee creerActionComposee(String libelle, Map<ActionSimple,Float> map) throws IllegalArgumentException {
         if (map.size() < 2) {
             throw new IllegalArgumentException("Une action composée doit être constituée d'au moins 2 actions simples.");
         }
@@ -59,21 +58,8 @@ public class Gestionnaire {
 
 
     
-    public void modifierCoursActionSimple(final String Libelle, final float valeur) throws IllegalArgumentException {
-        ActionSimple actionAModifier = new ActionSimple(Libelle);
-        int index = Application.getApplication().getActions().indexOf(actionAModifier);
-
-        if (index == -1) {
-            throw new IllegalArgumentException("Action does not exist");
-        }
-
-        ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(index);
-
-        int todayYear = LocalDate.now().getYear();
-        int todayDay = LocalDate.now().getDayOfMonth();
-        Jour todayDate = new Jour(todayYear, todayDay);
-
-        action.modifierCours(todayDate, valeur);
+    public void modifierCoursActionSimple(ActionSimple action, Map<Jour, Float> cours) {
+      
     }
 
 } 

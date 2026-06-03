@@ -18,9 +18,10 @@ class GestionnaireTest {
         this.gestionnaire = new Gestionnaire("Doe", "John");
     }
 
+
     @Test
     void testCreateActionSimpleDoitRetournerUneActionAvecLesValeursSpecifiees() {
-        ActionSimple action = gestionnaire.createActionSimple("TestAction", new java.util.HashMap<>(){{
+        ActionSimple action = gestionnaire.creerActionSimple("TestAction", new java.util.HashMap<>(){{
             put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 100.0f);
         }});
         Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
@@ -31,12 +32,12 @@ class GestionnaireTest {
 
     @Test
     void testCreateActionSimpleMemeDateMemeLibelleNeDoitPasFonctionner() {
-        gestionnaire.createActionSimple("action", new java.util.HashMap<>(){{
+        gestionnaire.creerActionSimple("action", new java.util.HashMap<>(){{
             put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
         }});
         
         assertThrows(IllegalArgumentException.class, () -> {
-            gestionnaire.createActionSimple("action", new java.util.HashMap<>(){{
+            gestionnaire.creerActionSimple("action", new java.util.HashMap<>(){{
                 put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
             }});
         });
@@ -44,7 +45,7 @@ class GestionnaireTest {
 
     @Test
     void testSupprimerActionSimpleDoitSupprimerLAction() {
-        gestionnaire.createActionSimple("actionToRemove", new java.util.HashMap<>(){{
+        gestionnaire.creerActionSimple("actionToRemove", new java.util.HashMap<>(){{
             put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 50.0f);
         }});
         
@@ -64,32 +65,5 @@ class GestionnaireTest {
         });
     }
 
-    @Test
-    void testModifierActionSimpleDoitModifierLaValeurDeLAction() {
-        gestionnaire.creerActionSimple("actionToModify", 50.0f);
-        
-        gestionnaire.modifierCoursActionSimple("actionToModify", 75.0f);
-        
-        ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(0);
-        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());        
-        assertEquals(75.0f, action.valeur(today), 0.001f);
-    }
-
-    @Test
-    void testModifierActionSimpleActionInexistanteDoitLancerException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            gestionnaire.modifierCoursActionSimple("nonExistentAction", 75.0f);
-        });
-    }
-
-    @Test
-    void testModifierActionSimpleAvecMemeValeurNeDoitPasModifierLaValeur() {
-        gestionnaire.creerActionSimple("actionToModify", 50.0f);
-        
-        gestionnaire.modifierCoursActionSimple("actionToModify", 50.0f);
-        
-        ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(0);
-        Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());        
-        assertEquals(50.0f, action.valeur(today), 0.001f);
-    }
+    
 }

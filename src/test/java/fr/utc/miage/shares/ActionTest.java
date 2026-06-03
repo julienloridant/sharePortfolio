@@ -15,6 +15,10 @@
  */
 package fr.utc.miage.shares;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -96,5 +100,51 @@ class ActionTest {
             return 0.0F;
         }
     }
+    @Test
+    void testSetAndGetListeValeur() {
+        final Action action = new ActionImpl(FOO_SHARE1);
+        final Map<Jour, Float> valeurs = new HashMap<>();
+        
+        action.setListeValeur(valeurs);
+        
+        Assertions.assertSame(valeurs, action.getListeValeur(), 
+                "La méthode getListeValeur doit retourner la même instance de Map que celle qui a été passée au setter");
+    }
+
+    @Test
+    void testGetDerniereValeurWhenMapIsNull() {
+        final Action action = new ActionImpl(FOO_SHARE1);
+        action.setListeValeur(null);
+        
+        Assertions.assertEquals(0.0f, action.getDerniereValeur(), 
+                "Doit retourner 0.0f lorsque la liste des valeurs est null");
+    }
+
+    @Test
+    void testGetDerniereValeurWhenMapIsEmpty() {
+        final Action action = new ActionImpl(FOO_SHARE1);
+        action.setListeValeur(new HashMap<>());
+        
+        Assertions.assertEquals(0.0f, action.getDerniereValeur(), 
+                "Doit retourner 0.0f lorsque la liste des valeurs est vide");
+    }
+
+    @Test
+    void testGetDerniereValeurWithEntries() {
+        final Action action = new ActionImpl(FOO_SHARE1);
+        // Utilisation de LinkedHashMap pour garantir l'ordre d'insertion lors de l'itération de la boucle for
+        final Map<Jour, Float> valeurs = new LinkedHashMap<>();
+        
+        // On utilise null comme clé puisque la classe Jour n'est pas instanciée ici, 
+        // cela suffit pour couvrir l'itération de la Map et la récupération de la valeur.
+        valeurs.put(null, 42.5f);
+        
+        action.setListeValeur(valeurs);
+        
+        Assertions.assertEquals(42.5f, action.getDerniereValeur(), 
+                "Doit retourner la valeur de la dernière entrée ajoutée dans la Map");
+    }
+
+
 
 }
