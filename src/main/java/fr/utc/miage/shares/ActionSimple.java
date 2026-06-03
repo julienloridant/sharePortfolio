@@ -77,5 +77,10 @@ public class ActionSimple extends Action {
         return true;
     }
 
-
+    
+    public void modifierCours(final Jour j, final float v) {
+        if (this.mapCours.containsKey(j)) {
+            this.mapCours.put(j, v);
+        }
+    }
 }
