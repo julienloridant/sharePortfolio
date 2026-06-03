@@ -139,6 +139,14 @@ class InvestisseurTest {
         assertEquals("Solde insuffisant", exception.getMessage(), "Le message d'erreur doit indiquer un solde insuffisant");
     }
 
+    @Test
+    void testAjouterSoldeAvecMontantPositif() {
+        // GIVEN
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        investisseur.setSolde(200.0f);
+
+        // WHEN
+        investisseur.ajouterSolde(150.0f);
 
     @Test
     void testAcheterAction() {
@@ -153,6 +161,23 @@ class InvestisseurTest {
                 () -> assertEquals(0.0f, investisseur.getSolde(), 0.001f),
                 () -> assertTrue(investisseur.getPortefeuille().contains(ACTION_APPLE))
         );
+        // THEN
+        assertEquals(350.0f, investisseur.getSolde(), 0.001f, "Le solde de l'investisseur doit être de 350 après l'ajout");
+    }
+
+    @Test
+    void testAjouterSoldeAvecMontantNegatif() {
+        // GIVEN
+        Investisseur investisseur = new Investisseur(NOM_CORRECT, PRENOM_CORRECT);
+        investisseur.setSolde(200.0f);
+
+        // WHEN & THEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            investisseur.ajouterSolde(-150.0f);
+        });
+
+        assertEquals("Le montant doit être positif", exception.getMessage(), "Le message d'erreur doit indiquer un montant négatif");
+    }
 
     }
 }
