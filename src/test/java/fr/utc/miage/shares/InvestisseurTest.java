@@ -1,11 +1,11 @@
 package fr.utc.miage.shares;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 
 public class InvestisseurTest {
@@ -16,6 +16,14 @@ public class InvestisseurTest {
         put(new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth()), 100.0f);
     }});   
 
+
+   @Test
+    public void testGetPortefeuillewithCorrectsParams () {
+        ArrayList<Action> portefeuille = Application.getApplication().getActions();
+
+        assertEquals(portefeuille, new ArrayList<Action>());
+
+    }
 
     @Test 
     public void testConstructorwithCorrectsParams () {

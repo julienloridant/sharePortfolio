@@ -67,6 +67,15 @@ public abstract class Action {
         this.libelle = libelle;
     }
 
+    /**
+     * Provides the value of the action object for a given day.
+     *
+     * @param j
+     * @return
+     */
+    public abstract float valeur(Jour j);
+
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -92,5 +101,5 @@ public abstract class Action {
     }
 
 
-
+    
 }
