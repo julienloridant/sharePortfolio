@@ -65,49 +65,5 @@ class GestionnaireTest {
         });
     }
 
-//     @Test
-//     void testModifierActionSimpleDoitModifierLaValeurDeLAction() {
-//         Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
-        
-//         Map<Jour, Float> cours = new HashMap<>();
-//         cours.put(today, 50.0f);
-//         ActionSimple actionATester = gestionnaire.creerActionSimple("actionToModify", cours);
-        
-//         Map<Jour, Float> coursMaj = new HashMap<>();
-//         coursMaj.put(today, 75.0f);
-//         System.out.println("Avant modification : " + actionATester);
-//         gestionnaire.modifierCoursActionSimple("actionToModify", coursMaj);
-        
-//         ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(0);
-//         assertEquals(50.0f, action.valeur(today), 0.001f);
-//     }
-
-//     @Test
-//     void testModifierActionSimpleActionInexistanteDoitLancerException() {
-//         Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
-        
-//         Map<Jour, Float> coursMaj = new HashMap<>();
-//         coursMaj.put(today, 75.0f);
-        
-//         assertThrows(IllegalArgumentException.class, () -> {
-//             gestionnaire.modifierCoursActionSimple("nonExistentAction", coursMaj);
-//         });
-// }
-
-//     @Test
-//     void testModifierActionSimpleAvecMemeValeurNeDoitPasModifierLaValeur() {
-//         Jour today = new Jour(LocalDate.now().getYear(), LocalDate.now().getDayOfMonth());
-        
-//         Map<Jour, Float> cours = new HashMap<>();
-//         cours.put(today, 50.0f);
-//         gestionnaire.creerActionSimple("actionToModify", cours);
-        
-//         // Même valeur, même jour
-//         Map<Jour, Float> coursMaj = new HashMap<>();
-//         coursMaj.put(today, 50.0f);
-//         gestionnaire.modifierCoursActionSimple("actionToModify", coursMaj);
-        
-//         ActionSimple action = (ActionSimple) Application.getApplication().getActions().get(0);
-//         assertEquals(50.0f, action.valeur(today), 0.001f);
-//     }
+    
 }
